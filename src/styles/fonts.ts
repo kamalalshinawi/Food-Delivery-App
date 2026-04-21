@@ -1,4 +1,4 @@
 export const AppFont = {
-  Bold: 'Quicksand-Bold',
-  Medium: 'Quicksand-Medium',
+  Bold: 'Rubik-Bold',
+  Medium: 'Rubik-Medium',
 };
