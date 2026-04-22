@@ -12,7 +12,7 @@ import { SharedPaddingHorizontal } from '../styles/SharedStyle';
 import HeaderApp from '../components/HeaderApp';
 import BannerView from '../components/BannerView';
 
-type BannerItem = {
+interface BannerItem  {
   id: string;
   title: string;
   price: string;

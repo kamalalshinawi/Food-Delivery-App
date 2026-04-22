@@ -13,7 +13,7 @@ import { s, vs } from 'react-native-size-matters';
 import { AppFont } from '../styles/fonts';
 import { AppColor } from '../styles/colors';
 
-type BannerViewProps = {
+interface BannerViewProps {
   title: string;
   price: string;
   image: ImageSourcePropType;
