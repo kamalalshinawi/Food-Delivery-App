@@ -1,8 +1,12 @@
 import { StyleSheet } from 'react-native';
-import HomeScreen from './src/screens/Home/HomeScreen';
-
+import { NavigationContainer } from '@react-navigation/native';
+import MainAppStack from './src/navigation/MainAppStack';
 function App() {
-  return <HomeScreen />;
+  return (
+    <NavigationContainer>
+      <MainAppStack />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({});
