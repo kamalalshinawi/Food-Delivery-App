@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import HomeScreen from './src/screens/HomeScreen';
+import HomeScreen from './src/screens/Home/HomeScreen';
 
 function App() {
   return <HomeScreen />;

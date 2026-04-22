@@ -7,10 +7,10 @@ import {
 } from 'react-native';
 import React from 'react';
 import { vs } from 'react-native-size-matters';
-import { AppColor } from '../styles/colors';
-import { SharedPaddingHorizontal } from '../styles/SharedStyle';
-import HeaderApp from '../components/HeaderApp';
-import BannerView from '../components/BannerView';
+import { AppColor } from '../../styles/colors';
+import { SharedPaddingHorizontal } from '../../styles/SharedStyle';
+import HeaderApp from '../../components/HeaderApp';
+import BannerView from '../../components/BannerView';
 
 interface BannerItem  {
   id: string;
@@ -25,21 +25,21 @@ const banners: BannerItem[] = [
     id: 'summer-combo',
     title: 'SUMMER\nCOMBO',
     price: '$10.88',
-    image: require('../assets/images/banner1.png'),
+    image: require('../../assets/images/banner1.png'),
     backgroundColor: '#E04403',
   },
   {
     id: 'cheese-deal',
     title: 'CHEESE\nDEAL',
     price: '$12.40',
-    image: require('../assets/images/banner1.png'),
+    image: require('../../assets/images/banner1.png'),
     backgroundColor: '#FF7622',
   },
   {
     id: 'burger-night',
     title: 'BURGER\nNIGHT',
     price: '$9.60',
-    image: require('../assets/images/banner1.png'),
+    image: require('../../assets/images/banner1.png'),
     backgroundColor: '#D9561A',
   },
 ];
