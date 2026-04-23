@@ -9,5 +9,6 @@ export const AppColor = {
     iconBackGround:"#181C2E",
     countColor: "#FF7622",
     border: "#CBCBCB",
-    Button: "#FE8C00"
+    Button: "#FE8C00",
+    
 }

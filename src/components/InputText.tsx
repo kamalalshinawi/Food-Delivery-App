@@ -27,13 +27,13 @@ const InputText: FC<inputTextProps> = ({
 }) => {
   const [text, setText] = useState('');
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Text style={styles.textTitle}>{title}</Text>
       <View>
         <TextInput
           value={text}
           onChangeText={setText}
-          style={[styles.input, style]}
+          style={styles.input}
           keyboardType={keyType}
           secureTextEntry={secureTextEntry}
         />
@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     borderColor: AppColor.border,
     borderRadius: vs(8),
     paddingHorizontal: vs(8),
-    paddingVertical: vs(1),
+    paddingVertical: vs(5),
     marginTop: vs(1.5),
+    color: 'black',
   },
 });
