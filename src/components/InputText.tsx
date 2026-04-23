@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderColor: AppColor.border,
     borderRadius: vs(8),
     paddingHorizontal: vs(8),
-    paddingVertical: vs(5),
+    paddingVertical: vs(2),
     marginTop: vs(1.5),
     color: 'black',
   },
