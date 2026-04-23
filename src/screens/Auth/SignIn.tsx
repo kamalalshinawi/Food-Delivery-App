@@ -54,7 +54,10 @@ const SignIn = () => {
           secureTextEntry
           style={styles.passInput}
         />
-        <ButtonApp title="Sign In" />
+        <ButtonApp
+          title="Sign In"
+          onPrees={() => navigation.navigate('MainApp' as never)}
+        />
       </View>
       {!isKeyboardVisible && (
         <View style={styles.textStyle}>

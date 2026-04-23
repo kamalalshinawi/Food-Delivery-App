@@ -6,11 +6,12 @@ import { AppColor } from '../styles/colors';
 
 interface ButtonAppProps {
   title: string;
+  onPrees?: () => void;
 }
 
-const ButtonApp: FC<ButtonAppProps> = ({ title }) => {
+const ButtonApp: FC<ButtonAppProps> = ({ title, onPrees }) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPrees}>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
