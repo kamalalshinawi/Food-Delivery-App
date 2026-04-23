@@ -42,7 +42,7 @@ const SignIn = () => {
       <View style={styles.imageBanner}>
         <Image
           style={{ width: '100%', height: '100%' }}
-          source={require('../../assets/images/loginBanner.png')}
+          source={require('../../assets/images/SignUpBanner.png')}
         />
         <View style={styles.logo}>{!isKeyboardVisible && <LoginIcon />}</View>
       </View>
