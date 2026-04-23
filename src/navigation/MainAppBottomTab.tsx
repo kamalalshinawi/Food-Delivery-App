@@ -15,7 +15,6 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ms, vs } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import HomeScreen from '../screens/Home/HomeScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
@@ -62,7 +61,7 @@ const getTabIconName = (routeName: string, focused: boolean): IoniconName => {
   }
 };
 
-type TabItemProps = {
+interface TabItemProps {
   routeName: string;
   label: string;
   focused: boolean;
@@ -250,7 +249,7 @@ function MyTabs() {
       <Tab.Screen
         name="Cart"
         component={Cart}
-        options={{ tabBarBadge: 2 }}
+        options={{ tabBarBadge: 5 }}
       />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
