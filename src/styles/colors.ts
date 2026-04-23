@@ -1,3 +1,4 @@
+
 export const AppColor = {
     primary:'#1E90FF',
     secondary:'#FE8C00',
@@ -8,4 +9,5 @@ export const AppColor = {
     iconBackGround:"#181C2E",
     countColor: "#FF7622",
     border: "#CBCBCB",
+    Button: "#FE8C00"
 }

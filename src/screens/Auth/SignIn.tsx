@@ -2,6 +2,7 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import InputText from '../../components/InputText';
+import ButtonApp from '../../components/ButtonApp';
 
 const SignIn = () => {
   const navigation = useNavigation();
@@ -13,7 +14,8 @@ const SignIn = () => {
         onPress={() => navigation.navigate('SignUp')}
       />
 
-      <InputText title={'Full Name'} />
+      <InputText title={'Full Name'} keyType='default' />
+      <ButtonApp title='Sign-In' />
     </View>
   );
 };

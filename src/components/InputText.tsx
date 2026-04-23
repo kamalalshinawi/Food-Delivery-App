@@ -1,20 +1,42 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import React, { FC, use, useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  KeyboardTypeOptions,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
+import React, { FC, useState } from 'react';
 import { SharedPaddingHorizontal } from '../styles/SharedStyle';
 import { vs } from 'react-native-size-matters';
 import { AppColor } from '../styles/colors';
 
 interface inputTextProps {
   title: string;
+  keyType: KeyboardTypeOptions;
+  secureTextEntry?: boolean;
+  style?: StyleProp<TextStyle>;
 }
 
-const InputText: FC<inputTextProps> = ({ title }) => {
+const InputText: FC<inputTextProps> = ({
+  style,
+  title,
+  keyType,
+  secureTextEntry,
+}) => {
   const [text, setText] = useState('');
   return (
     <View style={styles.container}>
       <Text style={styles.textTitle}>{title}</Text>
       <View>
-        <TextInput value={text} onChangeText={setText} style={styles.input} />
+        <TextInput
+          value={text}
+          onChangeText={setText}
+          style={[styles.input, style]}
+          keyboardType={keyType}
+          secureTextEntry={secureTextEntry}
+        />
       </View>
     </View>
   );
