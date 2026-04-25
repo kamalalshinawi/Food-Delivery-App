@@ -1,18 +1,27 @@
-import { FlatList, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import React, { useState } from 'react';
 import FoodCard from '../../components/FoodCard';
 import { foodData, FoodItem } from '../../constants/foodData';
 import { AppColor } from '../../styles/colors';
-import { vs } from 'react-native-size-matters';
+import { s, vs } from 'react-native-size-matters';
 import SearchBar from '../../components/SearchBar';
+import HeaderApp from '../../components/HeaderApp';
 
 const Search = () => {
   const [searchText, setSearchText] = useState('');
 
-
-
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+    >
+      <HeaderApp subTitle="Search" mainTitle="Food" />
       <SearchBar value={searchText} onChangeText={setSearchText} />
       <FlatList
         data={foodData}
@@ -33,7 +42,7 @@ const Search = () => {
           justifyContent: 'space-between',
         }}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -43,5 +52,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: AppColor.background,
+    paddingHorizontal: s(10),
   },
 });
