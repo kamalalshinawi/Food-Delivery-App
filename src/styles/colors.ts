@@ -10,5 +10,6 @@ export const AppColor = {
     countColor: "#FF7622",
     border: "#CBCBCB",
     Button: "#FE8C00",
+    cardColor: "#ffff",
     
 }
