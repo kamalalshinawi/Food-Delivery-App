@@ -1,13 +1,19 @@
 import { FlatList, StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import FoodCard from '../../components/FoodCard';
 import { foodData, FoodItem } from '../../constants/foodData';
 import { AppColor } from '../../styles/colors';
 import { vs } from 'react-native-size-matters';
+import SearchBar from '../../components/SearchBar';
 
 const Search = () => {
+  const [searchText, setSearchText] = useState('');
+
+
+
   return (
     <View style={styles.container}>
+      <SearchBar value={searchText} onChangeText={setSearchText} />
       <FlatList
         data={foodData}
         keyExtractor={(item: FoodItem) => item.id}
