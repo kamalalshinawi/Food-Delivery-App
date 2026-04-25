@@ -1,18 +1,23 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { FC } from 'react';
 import { s, vs } from 'react-native-size-matters';
 import { AppFont } from '../styles/fonts';
 import BottomIcon from '../assets/icons/BottomIcon';
 import TopIcon from '../components/TopIcon';
 import { AppColor } from '../styles/colors';
 
-const HeaderApp = () => {
+interface HeaderAppProps {
+  subTitle: string;
+  mainTitle: string;
+}
+
+const HeaderApp: FC<HeaderAppProps> = ({ subTitle, mainTitle }) => {
   return (
     <View style={styles.headStyle}>
       <View>
-        <Text style={styles.secText}>Deliver to</Text>
+        <Text style={styles.secText}>{subTitle}</Text>
         <TouchableOpacity style={styles.puMainText}>
-          <Text style={styles.mainText}>Rijeka, Croatia</Text>
+          <Text style={styles.mainText}>{mainTitle}</Text>
           <BottomIcon style={{ marginTop: vs(5) }} />
         </TouchableOpacity>
       </View>

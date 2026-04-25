@@ -12,13 +12,13 @@ import { SharedPaddingHorizontal } from '../../styles/SharedStyle';
 import HeaderApp from '../../components/HeaderApp';
 import BannerView from '../../components/BannerView';
 
-interface BannerItem  {
+interface BannerItem {
   id: string;
   title: string;
   price: string;
   image: ImageSourcePropType;
   backgroundColor: string;
-};
+}
 
 const banners: BannerItem[] = [
   {
@@ -58,7 +58,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <HeaderApp />
+      <HeaderApp subTitle="Deliver To" mainTitle="Tanta" />
       <View style={styles.bannerListWrapper}>
         <FlatList
           data={banners}
