@@ -1,7 +1,7 @@
 import { registerSheet, type SheetDefinition } from 'react-native-actions-sheet';
-import SuccessLogin from './components/SuccessLogin';
+import LoginSuccessSheet from './LoginSuccessSheet';
 
-registerSheet('LOGIN_SUCCESS', SuccessLogin);
+registerSheet('LOGIN_SUCCESS', LoginSuccessSheet);
 
 declare module 'react-native-actions-sheet' {
   interface Sheets {

@@ -13,6 +13,7 @@ import ButtonApp from '../../components/ButtonApp';
 import LoginIcon from '../../assets/icons/loginIcon';
 import { s, vs } from 'react-native-size-matters';
 import { AppColor } from '../../styles/colors';
+import { SheetManager } from 'react-native-actions-sheet';
 
 const SignIn = () => {
   const navigation = useNavigation();
@@ -56,7 +57,7 @@ const SignIn = () => {
         <InputText title="Password" keyType="default" secureTextEntry />
         <ButtonApp
           title="Sign In"
-          onPrees={() => navigation.navigate('MainApp' as never)}
+          onPrees={() => SheetManager.show('LOGIN_SUCCESS')}
         />
       </View>
       {!isKeyboardVisible && (

@@ -7,13 +7,12 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 function App() {
   return (
     <SafeAreaProvider>
-        <NavigationContainer>
-      <SheetProvider>
-        <MainAppStack />
-      </SheetProvider>
-    </NavigationContainer>
+      <NavigationContainer>
+        <SheetProvider>
+          <MainAppStack />
+        </SheetProvider>
+      </NavigationContainer>
     </SafeAreaProvider>
-  
   );
 }
 

@@ -38,6 +38,11 @@ const SignIn = () => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  const handelSignIn = () => {
+    SheetManager.show('LOGIN_SUCCESS');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageBanner}>
@@ -55,18 +60,14 @@ const SignIn = () => {
           secureTextEntry
           style={styles.passInput}
         />
-        <ButtonApp
-          title="Sign In"
-          onPrees={() => navigation.navigate('MainApp' as never)}
-        />
+        <ButtonApp title="Sign In" onPrees={() => handelSignIn()} />
       </View>
       {!isKeyboardVisible && (
         <View style={styles.textStyle}>
           <Text style={styles.mainText}>Don’t have an account?</Text>
           <Pressable
             onPress={() => {
-              // navigation.navigate('SignUp' as never);
-              SheetManager.show('LOGIN_SUCCESS');
+              navigation.navigate('SignUp' as never);
             }}
           >
             <Text
