@@ -14,7 +14,6 @@ import LoginIcon from '../../assets/icons/loginIcon';
 import { s, vs } from 'react-native-size-matters';
 import { AppColor } from '../../styles/colors';
 import { SheetManager } from 'react-native-actions-sheet';
-import SuccessLogin from '../../components/SuccessLogin';
 
 const SignIn = () => {
   const navigation = useNavigation();
@@ -67,7 +66,7 @@ const SignIn = () => {
           <Pressable
             onPress={() => {
               // navigation.navigate('SignUp' as never);
-              SheetManager.show("LOGIN_SUCCESS")
+              SheetManager.show('LOGIN_SUCCESS');
             }}
           >
             <Text
@@ -80,7 +79,6 @@ const SignIn = () => {
           </Pressable>
         </View>
       )}
-      <SuccessLogin />
     </View>
   );
 };
