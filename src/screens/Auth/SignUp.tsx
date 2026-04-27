@@ -14,10 +14,23 @@ import LoginIcon from '../../assets/icons/loginIcon';
 import { s, vs } from 'react-native-size-matters';
 import { AppColor } from '../../styles/colors';
 import { SheetManager } from 'react-native-actions-sheet';
+import { ValidationError } from 'yup';
+import { signUpSchema } from '../../utils/validationSchemas';
+
+type SignUpErrors = {
+  fullName?: string;
+  email?: string;
+  password?: string;
+};
 
 const SignIn = () => {
   const navigation = useNavigation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState<SignUpErrors>({});
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -38,6 +51,28 @@ const SignIn = () => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  const handleSignUp = async () => {
+    try {
+      await signUpSchema.validate(
+        { fullName, email, password },
+        { abortEarly: false },
+      );
+      setErrors({});
+      SheetManager.show('LOGIN_SUCCESS');
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        const fieldErrors: SignUpErrors = {};
+        err.inner.forEach(e => {
+          if (e.path && !fieldErrors[e.path as keyof SignUpErrors]) {
+            fieldErrors[e.path as keyof SignUpErrors] = e.message;
+          }
+        });
+        setErrors(fieldErrors);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageBanner}>
@@ -48,17 +83,30 @@ const SignIn = () => {
         <View style={styles.logo}>{!isKeyboardVisible && <LoginIcon />}</View>
       </View>
       <View style={styles.formContainer}>
-        <InputText title="Full Name" keyType="default" />
+        <InputText
+          title="Full Name"
+          keyType="default"
+          value={fullName}
+          onChangeText={setFullName}
+          error={errors.fullName}
+        />
         <InputText
           style={styles.emailInput}
           title="Email"
           keyType="email-address"
+          value={email}
+          onChangeText={setEmail}
+          error={errors.email}
         />
-        <InputText title="Password" keyType="default" secureTextEntry />
-        <ButtonApp
-          title="Sign In"
-          onPrees={() => SheetManager.show('LOGIN_SUCCESS')}
+        <InputText
+          title="Password"
+          keyType="default"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+          error={errors.password}
         />
+        <ButtonApp title="Sign Up" onPrees={handleSignUp} />
       </View>
       {!isKeyboardVisible && (
         <View style={styles.textStyle}>

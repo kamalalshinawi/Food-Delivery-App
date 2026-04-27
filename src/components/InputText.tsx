@@ -7,7 +7,7 @@ import {
   StyleProp,
   TextStyle,
 } from 'react-native';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { SharedPaddingHorizontal } from '../styles/SharedStyle';
 import { vs } from 'react-native-size-matters';
 import { AppColor } from '../styles/colors';
@@ -17,6 +17,9 @@ interface inputTextProps {
   keyType: KeyboardTypeOptions;
   secureTextEntry?: boolean;
   style?: StyleProp<TextStyle>;
+  value?: string;
+  onChangeText?: (text: string) => void;
+  error?: string;
 }
 
 const InputText: FC<inputTextProps> = ({
@@ -24,20 +27,26 @@ const InputText: FC<inputTextProps> = ({
   title,
   keyType,
   secureTextEntry,
+  value,
+  onChangeText,
+  error,
+  ...props
 }) => {
-  const [text, setText] = useState('');
   return (
     <View style={[styles.container, style]}>
       <Text style={styles.textTitle}>{title}</Text>
       <View>
         <TextInput
-          value={text}
-          onChangeText={setText}
-          style={styles.input}
+          value={value}
+          onChangeText={onChangeText}
+          style={[styles.input, !!error && styles.inputError]}
           keyboardType={keyType}
           secureTextEntry={secureTextEntry}
+          autoCapitalize="none"
+          {...props}
         />
       </View>
+      {!!error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -63,5 +72,14 @@ const styles = StyleSheet.create({
     paddingVertical: vs(2),
     marginTop: vs(1.5),
     color: 'black',
+  },
+  inputError: {
+    borderColor: '#E53935',
+  },
+  errorText: {
+    color: '#E53935',
+    fontSize: vs(11),
+    paddingHorizontal: vs(8),
+    marginTop: vs(2),
   },
 });
