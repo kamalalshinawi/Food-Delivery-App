@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View } from 'react-native';
 import ActionSheet, {
   SheetManager,
   SheetProps,
@@ -7,6 +7,7 @@ import ActionSheet, {
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import { s, vs } from 'react-native-size-matters';
+import ButtonApp from '../components/ButtonApp';
 
 const LoginSuccessSheet = (props: SheetProps<'LOGIN_SUCCESS'>) => {
   const navigation = useNavigation();
@@ -30,9 +31,9 @@ const LoginSuccessSheet = (props: SheetProps<'LOGIN_SUCCESS'>) => {
 
         <Text style={styles.title}>Login Successful</Text>
 
-        <Button
+        <ButtonApp
           title="Go to Home Page"
-          onPress={async () => {
+          onPrees={async () => {
             await SheetManager.hide('LOGIN_SUCCESS');
             navigation.navigate('MainApp' as never);
           }}

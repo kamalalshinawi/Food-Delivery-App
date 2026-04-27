@@ -4,7 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import FoodCard from '../../components/FoodCard';
 import { foodData, FoodItem } from '../../constants/foodData';
 import { AppColor } from '../../styles/colors';
@@ -15,6 +15,14 @@ import HeaderApp from '../../components/HeaderApp';
 const Search = () => {
   const [searchText, setSearchText] = useState('');
 
+  const filterData = useMemo(() => {
+    const query = searchText.trim().toLowerCase();
+    if (!query) {
+      return foodData;
+    }
+    return foodData.filter(item => item.foodName.toLowerCase().includes(query));
+  }, [searchText]);
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -24,7 +32,7 @@ const Search = () => {
       <HeaderApp subTitle="Search" mainTitle="Food" />
       <SearchBar value={searchText} onChangeText={setSearchText} />
       <FlatList
-        data={foodData}
+        data={filterData}
         keyExtractor={(item: FoodItem) => item.id}
         numColumns={2}
         showsVerticalScrollIndicator={false}
