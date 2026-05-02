@@ -18,6 +18,7 @@ interface CheckoutCardProps {
   title: string;
   price: string;
   count: number;
+  handelIncreaseItem: () => void;
 }
 
 const CheckoutCard: FC<CheckoutCardProps> = ({
@@ -25,6 +26,7 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
   title,
   price,
   count,
+  handelIncreaseItem
 }) => {
   return (
     <View style={styles.container}>
@@ -41,7 +43,7 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
             <DecreaseIcon />
           </TouchableOpacity>
           <Text style={styles.count}>{count}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handelIncreaseItem}>
             <IncreaseIcon />
           </TouchableOpacity>
         </View>
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     height: vs(100),
     backgroundColor: AppColor.cardColor,
     borderRadius: s(20),
-    marginBottom: vs(20),
+    marginBottom: vs(-5),
     marginTop: vs(18),
     flexDirection: 'row',
     alignItems: 'center',

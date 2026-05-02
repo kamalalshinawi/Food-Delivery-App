@@ -11,9 +11,12 @@ import { AppColor } from '../../styles/colors';
 import { s, vs } from 'react-native-size-matters';
 import SearchBar from '../../components/SearchBar';
 import HeaderApp from '../../components/HeaderApp';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/reducers/CartSlice';
 
 const Search = () => {
   const [searchText, setSearchText] = useState('');
+  const dispatch = useDispatch();
 
   const filterData = useMemo(() => {
     const query = searchText.trim().toLowerCase();
@@ -41,6 +44,7 @@ const Search = () => {
             imageSource={item.imageSource}
             foodName={item.foodName}
             price={item.price}
+            handelAddToCart={() => dispatch(addToCart(item))}
           />
         )}
         contentContainerStyle={{

@@ -13,17 +13,20 @@ import { AppColor } from '../styles/colors';
 import { Text } from 'react-native-gesture-handler';
 import { AppFont } from '../styles/fonts';
 import PlusIcon from '../assets/icons/PlusIcon';
+import { useDispatch } from 'react-redux';
 
 interface FoodCardProps {
   imageSource: ImageSourcePropType;
   foodName: string;
   price: string;
+  handelAddToCart: () =>void;
 }
 
 const { width } = Dimensions.get('window');
 const cardWidth = (width - SharedPaddingHorizontal * 2 - s(14)) / 2; // Calculate card width based on screen width and padding
 
-const FoodCard: FC<FoodCardProps> = ({ imageSource, foodName, price }) => {
+const FoodCard: FC<FoodCardProps> = ({ imageSource, foodName, price,handelAddToCart }) => {
+
   return (
     <View
       style={{
@@ -39,7 +42,7 @@ const FoodCard: FC<FoodCardProps> = ({ imageSource, foodName, price }) => {
           <Text style={styles.foodDetail}>{foodName}</Text>
           <Text style={styles.priceDetail}>From {price}</Text>
         </View>
-        <TouchableOpacity style={styles.tableStyle}>
+        <TouchableOpacity style={styles.tableStyle} onPress={handelAddToCart}>
           <PlusIcon />
           <Text style={{ color: AppColor.iconBackGround }}>Add To Cart</Text>
         </TouchableOpacity>
