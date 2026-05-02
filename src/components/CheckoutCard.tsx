@@ -4,6 +4,7 @@ import {
   View,
   Text,
   ImageSourcePropType,
+  TouchableOpacity,
 } from 'react-native';
 import React, { FC } from 'react';
 import { s, vs } from 'react-native-size-matters';
@@ -36,13 +37,17 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.mainBottom}>
-          <DecreaseIcon />
+          <TouchableOpacity>
+            <DecreaseIcon />
+          </TouchableOpacity>
           <Text style={styles.count}>{count}</Text>
-          <IncreaseIcon />
+          <TouchableOpacity>
+            <IncreaseIcon />
+          </TouchableOpacity>
         </View>
-        <View style={styles.deleteIconContainer}>
+        <TouchableOpacity style={styles.deleteIconContainer}>
           <DeleteIcon />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -100,7 +105,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: s(25),
-    backgroundColor: 'red',
   },
   count: {
     fontSize: s(14),
