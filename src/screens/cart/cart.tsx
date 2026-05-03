@@ -1,4 +1,5 @@
 import { StyleSheet, FlatList, View, TouchableOpacity } from 'react-native';
+import { vs } from 'react-native-size-matters';
 import React from 'react';
 import CheckoutCard from '../../components/CheckoutCard';
 import { SharedPaddingHorizontal } from '../../styles/SharedStyle';
@@ -24,7 +25,7 @@ const cart = () => {
       <View>
         <HeaderApp subTitle="Your" mainTitle="Cart" />
       </View>
-      <View>
+      <View style={styles.listWrapper}>
         <FlatList
           data={items}
           keyExtractor={item => item.id}
@@ -45,9 +46,7 @@ const cart = () => {
               }}
             />
           )}
-          contentContainerStyle={{
-            paddingBottom: 120,
-          }}
+          contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
         />
       </View>
@@ -69,6 +68,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: SharedPaddingHorizontal,
+  },
+  listWrapper: {
+    flex: 1,
+  },
+  listContent: {
+    paddingBottom: vs(360),
   },
   buttonContainer: {
     position: 'absolute',
