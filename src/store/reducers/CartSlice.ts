@@ -4,7 +4,7 @@ import { ImageSourcePropType } from 'react-native';
 interface CartItem {
   id: string;
   foodName: string;
-  price: string;
+  price: number;
   quantity: number;
   totalPrice: number;
   imageSource: ImageSourcePropType;

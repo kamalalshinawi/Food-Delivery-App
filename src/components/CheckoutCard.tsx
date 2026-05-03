@@ -16,7 +16,7 @@ import DeleteIcon from '../assets/icons/DeleteIcon';
 interface CheckoutCardProps {
   image: ImageSourcePropType;
   title: string;
-  price: string;
+  price: number | string;
   count: number;
   handelIncreaseItem: () => void;
   handelDecreaseItem: () => void;
@@ -39,7 +39,7 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.price}>${price}</Text>
+        <Text style={styles.price}>{price}</Text>
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.mainBottom}>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     width: s(95),
     height: vs(90),
     borderRadius: s(20),
-    backgroundColor: AppColor.secondary,
+    // backgroundColor: AppColor.secondary,
     alignItems: 'center',
     justifyContent: 'center',
   },
