@@ -37,8 +37,22 @@ const cartSlice = createSlice({
         });
       }
     },
+    deleteFromCart: (state, action) => {
+      const existingItem = state.items.find(
+        item => item.id === action.payload.id,
+      );
+      if (existingItem && existingItem.quantity != 1) {
+        existingItem.quantity -= 1;
+        existingItem.totalPrice -= action.payload.price;
+      } else {
+        state.items = state.items.filter(item => item.id !== action.payload.id);
+      }
+    },
+    emptyCard: (state, action) => {
+      state.items = state.items.filter(item => item.id !== action.payload.id);
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, deleteFromCart, emptyCard } = cartSlice.actions;
 export default cartSlice;

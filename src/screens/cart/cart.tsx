@@ -4,7 +4,11 @@ import CheckoutCard from '../../components/CheckoutCard';
 import { SharedPaddingHorizontal } from '../../styles/SharedStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
-import { addToCart } from '../../store/reducers/CartSlice';
+import {
+  addToCart,
+  deleteFromCart,
+  emptyCard,
+} from '../../store/reducers/CartSlice';
 
 const cart = () => {
   const dispatch = useDispatch();
@@ -23,6 +27,12 @@ const cart = () => {
             handelIncreaseItem={() => {
               dispatch(addToCart(item));
             }}
+            handelDecreaseItem={() => {
+              dispatch(deleteFromCart(item));
+            }}
+            deleteCard={() => {
+              dispatch(emptyCard(item));
+            }}
           />
         )}
         contentContainerStyle={{
@@ -30,7 +40,6 @@ const cart = () => {
         }}
         showsVerticalScrollIndicator={false}
       />
-   
     </View>
   );
 };

@@ -19,7 +19,8 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
 import Cart from '../screens/cart/cart';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 const Tab = createBottomTabNavigator();
 
 const COLORS = {
@@ -68,7 +69,7 @@ interface TabItemProps {
   onPress: () => void;
   onLongPress: () => void;
   badgeCount?: number;
-};
+}
 
 function TabItem({
   routeName,
@@ -234,10 +235,12 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 }
 
 function MyTabs() {
+  const { items } = useSelector((state: RootState) => state.cartSlice);
+
   return (
     <Tab.Navigator
       detachInactiveScreens={false}
-      tabBar={(props) => <CustomTabBar {...props} />}
+      tabBar={props => <CustomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
         lazy: false,
@@ -249,7 +252,7 @@ function MyTabs() {
       <Tab.Screen
         name="Cart"
         component={Cart}
-        options={{ tabBarBadge: 5 }}
+        options={{ tabBarBadge: items.length > 0 ? items.length : undefined }}
       />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>

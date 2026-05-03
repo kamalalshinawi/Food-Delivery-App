@@ -19,6 +19,8 @@ interface CheckoutCardProps {
   price: string;
   count: number;
   handelIncreaseItem: () => void;
+  handelDecreaseItem: () => void;
+  deleteCard: () => void;
 }
 
 const CheckoutCard: FC<CheckoutCardProps> = ({
@@ -26,7 +28,9 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
   title,
   price,
   count,
-  handelIncreaseItem
+  handelIncreaseItem,
+  handelDecreaseItem,
+  deleteCard,
 }) => {
   return (
     <View style={styles.container}>
@@ -39,7 +43,7 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.mainBottom}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handelDecreaseItem}>
             <DecreaseIcon />
           </TouchableOpacity>
           <Text style={styles.count}>{count}</Text>
@@ -47,7 +51,10 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
             <IncreaseIcon />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.deleteIconContainer}>
+        <TouchableOpacity
+          style={styles.deleteIconContainer}
+          onPress={deleteCard}
+        >
           <DeleteIcon />
         </TouchableOpacity>
       </View>
