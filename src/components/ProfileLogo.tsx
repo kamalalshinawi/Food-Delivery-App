@@ -24,7 +24,7 @@ export default ProfileLogo;
 const styles = StyleSheet.create({
   container: {
     width:"100%",
-    marginTop: vs(90),
+    marginTop: vs(30),
     justifyContent: 'center',
     alignItems: 'center',
   },
