@@ -82,7 +82,9 @@ myApp/
 │   │   └── Profile/           # ProfileScreen
 │   ├── sheets/                # Action sheets (e.g. LoginSuccessSheet)
 │   ├── store/
-│   │   ├── store.ts           # Redux store + redux-persist setup
+│   │   ├── store.ts           # Redux store + persistor setup
+│   │   ├── persisted/
+│   │   │   └── persistConfig.ts  # Per-slice redux-persist config (Cart)
 │   │   └── reducers/
 │   │       └── CartSlice.ts   # Cart slice (add / decrease / remove)
 │   ├── styles/                # Colors, fonts, shared styles
@@ -97,35 +99,62 @@ myApp/
 
 State is managed with **Redux Toolkit**. The cart slice exposes three reducers — `addToCart`, `deleteFromCart`, and `emptyCard` — and lives in `src/store/reducers/CartSlice.ts`.
 
-### Redux Persist (minimal setup)
+### Redux Persist (per-slice setup)
 
-Only the `cartSlice` is persisted, using **AsyncStorage** as the storage engine.
+The app uses a **per-slice persistence** strategy: each slice that needs to survive restarts gets wrapped in its own `persistReducer` and is then mounted in the store. Only the `cartSlice` is currently persisted, using **AsyncStorage** as the storage engine.
 
-```16:25:src/store/store.ts
+The persist config lives in its own module at `src/store/persisted/persistConfig.ts`:
+
+```1:14:src/store/persisted/persistConfig.ts
+import { persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import cartSlice from '../reducers/CartSlice';
+
 const persistConfig = {
-  key: 'root',
+  key: 'Cart',
   storage: AsyncStorage,
-  whitelist: ['cartSlice'],
+  whitelist: ['items'],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const persistCartSlice = persistReducer(
+  persistConfig,
+  cartSlice.reducer,
+);
 ```
 
-The store ignores the `redux-persist` lifecycle actions in the serializability check and exports a `persistor` that the app passes to `<PersistGate>`:
+> The `whitelist: ['items']` whitelists fields **inside** the cart slice's state — only the `items` array is written to AsyncStorage.
 
-```9:23:App.tsx
+The store imports the wrapped reducer and ignores the `redux-persist` lifecycle actions in the serializability check, then exports a `persistor` that the app passes to `<PersistGate>`:
+
+```12:24:src/store/store.ts
+export const store = configureStore({
+    reducer:{
+        cartSlice: persistCartSlice,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+          serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+          },
+        }),
+})
+
+export const persistor = persistStore(store);
+```
+
+```10:23:App.tsx
 function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <SheetProvider>
-              <MainAppStack />
-            </SheetProvider>
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </PersistGate>
+      <PersistGate persistor={persistor}>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <SheetProvider>
+          <MainAppStack />
+        </SheetProvider>
+      </NavigationContainer>
+    </SafeAreaProvider>
+    </PersistGate>
     </Provider>
   );
 }
@@ -135,15 +164,34 @@ function App() {
 
 ### Adding more persisted slices
 
-To persist additional slices, add their reducer to the `combineReducers` call in `src/store/store.ts` and include the slice key in the `whitelist`:
+Because persistence is configured per-slice, adding another persisted slice is a two-step process:
 
-```ts
-const persistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  whitelist: ['cartSlice', 'authSlice'],
-};
-```
+1. Create a new persisted reducer in `src/store/persisted/persistConfig.ts` (or a new file alongside it):
+
+   ```ts
+   const authPersistConfig = {
+     key: 'Auth',
+     storage: AsyncStorage,
+     whitelist: ['user', 'token'],
+   };
+
+   export const persistAuthSlice = persistReducer(
+     authPersistConfig,
+     authSlice.reducer,
+   );
+   ```
+
+2. Mount it in the store's `reducer` map in `src/store/store.ts`:
+
+   ```ts
+   export const store = configureStore({
+     reducer: {
+       cartSlice: persistCartSlice,
+       authSlice: persistAuthSlice,
+     },
+     // ...middleware
+   });
+   ```
 
 ---
 
