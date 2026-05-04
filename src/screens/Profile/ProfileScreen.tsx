@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import ProfileLogo from '../../components/ProfileLogo'
 
 const Profile = () => {
   return (
     <View>
-      <Text>profile</Text>
+      <ProfileLogo />
     </View>
   )
 }
